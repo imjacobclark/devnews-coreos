@@ -1,11 +1,15 @@
 [Unit]
 Description=Developer News API
 After=docker.service
+Requires=docker.service
 
 [Service]
-TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker kill devnew-core
+ExecStartPre=-/usr/bin/docker kill devnews-core
 ExecStartPre=-/usr/bin/docker rm devnews-core
-ExecStartPre=/usr/bin/docker pull devnews-core
-ExecStart=/usr/bin/docker run -d -p 1337:1337 --name devnews-core devnews-core
+ExecStartPre=/usr/bin/docker pull imjacobclark/devnews-core
+ExecStart=/usr/bin/docker run -p 1337:1337 --name devnews-core imjacobclark/devnews-core
 ExecStop=/usr/bin/docker stop devnews-core
+TimeoutStartSec=0
+Restart=always
+RestartSec=10s
+
