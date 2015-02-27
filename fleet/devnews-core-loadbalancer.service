@@ -1,0 +1,26 @@
+[Unit]
+Description=Nginx load balancer for the dev news core web service
+
+# Requirements
+Requires=etcd.service
+Requires=docker.service
+
+# Dependency ordering
+After=etcd.service
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+KillMode=none
+EnvironmentFile=/etc/environment
+ExecStartPre=-/usr/bin/docker kill devnews-core-loadbalancer
+ExecStartPre=-/usr/bin/docker rm devnews-core-loadbalancer
+ExecStartPre=/usr/bin/docker pull imjacobclark/devnews-core-loadbalancer
+ExecStart=/usr/bin/docker run --name devnews-core-loadbalancer -p ${COREOS_PUBLIC_IPV4}:80:80 imjacobclark/devnews-core-loadbalancer /usr/local/bin/confd-watch
+
+# Stop
+ExecStop=/usr/bin/docker stop devnews_core_loadbalancer
+
+[X-Fleet]
+Conflicts=nginx.service
+Conflicts=devnews-core@*.service

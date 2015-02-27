@@ -9,14 +9,14 @@ ExecStart=/bin/bash -c '\
 	while true; do \
 		curl -f ${COREOS_PRIVATE_IPV4}:%i; \
 		if [ $? -eq 0 ]; then \
-			etcdctl set /services/devnews-core/${COREOS_PRIVATE_IPV4} \'${COREOS_PRIVATE_IPV4}:%i\' --ttl 30; \
+			etcdctl set /services/devnews-core/${COREOS_PUBLIC_IPV4} \'${COREOS_PUBLIC_IPV4}:%i\' --ttl 30; \
 		else \
-			etcdctl rm /services/devnews-core/${COREOS_PRIVATE_IPV4}; \
+			etcdctl rm /services/devnews-core/${COREOS_PUBLIC_IPV4}; \
 		fi; \
 		sleep 20; \
 	done'
 
-ExecStop=/usr/bin/etcdctl rm /announce/services/devnews-core/${COREOS_PRIVATE_IPV4}
+ExecStop=/usr/bin/etcdctl rm /announce/services/devnews-core/${COREOS_PUBLIC_IPV4}
 
 [X-Fleet]
 X-ConditionMachineOf=devnews-core@%i.service
