@@ -4,6 +4,7 @@ Configuration for deploying a highly avaliable and clustered [Developer News](ht
 ### Launch the fleet
 
 ```shell
+git clone https://github.com/imjacobclark/devnews-coreos.git && devnews-coreos
 fleetctl submit devnews-core@.service devnews-core-discovery@.service
 fleetctl load devnews-core@{port}.service devnews-core-discovery@{port{.service
 fleetctl start devnews-core@{port}.service
