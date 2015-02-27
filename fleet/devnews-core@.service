@@ -2,7 +2,7 @@
 Description=Developer News API
 After=docker.service
 After=etcd.service
-Requires=devnews-core@%i.service
+Requires=devnews-core-discovery@%i.service
 
 [Service]
 KillMode=none
