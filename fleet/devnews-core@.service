@@ -1,0 +1,20 @@
+[Unit]
+Description=Developer News API
+After=docker.service
+After=etcd.service
+Requires=devnews-core@%i.service
+
+[Service]
+KillMode=none
+EnviromentFile=/etc/enviroment
+ExecStartPre=-/usr/bin/docker kill devnews-core%i
+ExecStartPre=-/usr/bin/docker rm devnews-core%i
+ExecStartPre=/usr/bin/docker pull imjacobclark/devnews-core
+ExecStart=/usr/bin/docker run -p ${COREOS_PUBLIC_IPV4}:%i:1337 --name devnews-core imjacobclark/devnews-core
+ExecStop=/usr/bin/docker stop devnews-core
+TimeoutStartSec=0
+Restart=always
+RestartSec=10s
+
+[X-Fleet]
+X-Conflicts=devnews-core@%i.service

@@ -1,0 +1,11 @@
+[Unit]
+Description=Announce devnews-core@%i service
+BindsTo=devnews-core@%i.service
+
+[Service]
+EnvironmentFile=/etc/environment
+ExecStart=/bin/sh -c "while true; do etcdctl set /announce/services/devnews-core%i ${COREOS_PUBLIC_IPV4}:%i --ttl 60; sleep 45; done"
+ExecStop=/usr/bin/etcdctl rm /announce/services/devnews-core%i
+
+[X-Fleet]
+X-ConditionMachineOf=devnews-core@%i.service
