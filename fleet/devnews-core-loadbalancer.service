@@ -19,7 +19,7 @@ ExecStartPre=/usr/bin/docker pull imjacobclark/devnews-core-loadbalancer
 ExecStart=/usr/bin/docker run --name devnews-core-loadbalancer -p ${COREOS_PUBLIC_IPV4}:80:80 imjacobclark/devnews-core-loadbalancer /usr/local/bin/confd-watch
 
 # Stop
-ExecStop=/usr/bin/docker stop devnews_core_loadbalancer
+ExecStop=/usr/bin/docker stop devnews-core-loadbalancer
 
 [X-Fleet]
 Conflicts=nginx.service
