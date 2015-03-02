@@ -22,17 +22,19 @@ cd fleet/templates && fleetctl submit devnews-core@.service devnews-core-discove
 ```
 
 Load and start the units:
-```
+
+```shell
 cd fleet/instances && fleetctl start *
 ```
 
 To add more units to your cluster, replacing {port} with a port number not currently in use by devnews-core:
 
-```
+```shell
 cd fleet/templates && ln -s devnews-core@.service devnews-core@{port}.service && ln -s devnews-core-discovery@.service devnews-core-discovery@{port}.service
 ```
 
 View the IPs and Ports of each running service:
+
 ```shell
 etcdctl ls --recursive /
 ```
