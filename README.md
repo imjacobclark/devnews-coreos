@@ -9,16 +9,27 @@ Grab the repo:
 git clone https://github.com/imjacobclark/devnews-coreos.git && devnews-coreos
 ```
 
-Submit to Fleet:
+Launch the static loadbalancer:
 
 ```shell
-fleetctl submit devnews-core@.service devnews-core-discovery@.service
+cd fleet/statics && fleetctl start devnews-core-loadbalancer@.service
 ```
 
-Load and start the units, repeat for the number of units you require, replacing {port} with a unique number each time:
+Submit templates to Fleet:
+
+```shell
+cd fleet/templates && fleetctl submit devnews-core@.service devnews-core-discovery@.service
 ```
-fleetctl load devnews-core@{port}.service devnews-core-discovery@{port}.service
-fleetctl start devnews-core@{port}.service
+
+Load and start the units:
+```
+cd fleet/instances && fleetctl start *
+```
+
+To add more units to your cluster, replacing {port} with a port number not currently in use by devnews-core:
+
+```
+cd fleet/templates && ln -s devnews-core@.service devnews-core@{port}.service && ln -s devnews-core-discovery@.service devnews-core-discovery@{port}.service
 ```
 
 View the IPs and Ports of each running service:
