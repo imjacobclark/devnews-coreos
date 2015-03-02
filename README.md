@@ -1,5 +1,5 @@
 # devnews-coreos
-Configuration for deploying a highly avaliable and clustered [Developer News](http://devnews.today) enviroment onto a CoreOS platform
+Configuration for deploying a highly avaliable and clustered [Developer News API](http://api.devnews.today) enviroment onto a CoreOS platform
 
 ### Launch the fleet
 
@@ -12,31 +12,36 @@ git clone https://github.com/imjacobclark/devnews-coreos.git && devnews-coreos
 Launch the static loadbalancer:
 
 ```shell
-cd fleet/statics && fleetctl start devnews-core-loadbalancer.service
+fleetctl start fleet/statics/devnews-core-loadbalancer.service
 ```
 
 Submit templates to Fleet:
 
 ```shell
-cd fleet/templates && fleetctl submit devnews-core@.service devnews-core-discovery@.service
+fleetctl submit fleet/templates/devnews-core@.service fleet/templates/devnews-core-discovery@.service
 ```
 
 Load and start the units:
 
 ```shell
-cd fleet/instances && fleetctl start *
+fleetctl start fleet/instances*
 ```
 
 To add more units to your cluster, replacing {port} with a port number not currently in use by devnews-core:
 
 ```shell
-cd fleet/templates && ln -s devnews-core@.service devnews-core@{port}.service && ln -s devnews-core-discovery@.service devnews-core-discovery@{port}.service
+ln -s fleet/templates/devnews-core@.service fleet/instances/devnews-core@{port}.service && ln -s fleet/templates/devnews-core-discovery@.service fleet/instances/devnews-core-discovery@{port}.service
 ```
 
-View the IPs and Ports of each running service:
+View the IPs of each running service:
 
 ```shell
-etcdctl ls --recursive /
+etcdctl ls --recursive /services/devnews-core
+```
+View the IPs and Ports of each running service, replacing {ip} with a returned IP from the previous command:
+
+```shell
+etcdctl get /services/devnews-core/{ip}
 ```
 
 Enjoy.
