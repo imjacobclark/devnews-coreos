@@ -1,5 +1,5 @@
 # devnews-coreos
-Configuration for deploying a highly avaliable and clustered [Developer News](http://devnews.today) enviroment onto a CoreOS platform
+Configuration for deploying a highly avaliable and clustered [Developer News API](http://api.devnews.today) enviroment onto a CoreOS platform
 
 ### Launch the fleet
 
