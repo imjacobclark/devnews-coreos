@@ -12,7 +12,7 @@ git clone https://github.com/imjacobclark/devnews-coreos.git && devnews-coreos
 Launch the static loadbalancer:
 
 ```shell
-cd fleet/statics && fleetctl start devnews-core-loadbalancer@.service
+cd fleet/statics && fleetctl start devnews-core-loadbalancer.service
 ```
 
 Submit templates to Fleet:
