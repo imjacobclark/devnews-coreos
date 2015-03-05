@@ -1,6 +1,10 @@
 # devnews-coreos
 Configuration for deploying a highly avaliable and clustered [Developer News API](http://api.devnews.today) enviroment onto a CoreOS platform
 
+### Requirements
+
+- 3 node minimum CoreOS cluster
+
 ### Launch the fleet
 
 Grab the repo:
