@@ -6,7 +6,7 @@ Requires=devnews-core-discovery@%i.service
 
 [Service]
 KillMode=none
-EnviromentFile=/etc/enviroment
+EnvironmentFile=/etc/environment
 ExecStartPre=-/usr/bin/docker kill devnews-core%i
 ExecStartPre=-/usr/bin/docker rm devnews-core%i
 ExecStartPre=/usr/bin/docker pull imjacobclark/devnews-core
